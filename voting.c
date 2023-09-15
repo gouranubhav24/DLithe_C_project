@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<stdbool.h>
 
 #define MAX_CANDIDATES 5
 #define MAX_VOTERS 100
@@ -43,8 +44,7 @@ void listCandidates() {
 
 void castVote(int voter_id, int candidate_id) {
     if (voter_id >= 0 && voter_id < voter_count &&
-        candidate_id > 0 && candidate_id <= candidate_count &&
-        !voters[voter_id].has_voted) {
+        candidate_id > 0 && candidate_id <= candidate_count &&!voters[voter_id].has_voted) {
         candidates[candidate_id - 1].vote_count++;
         voters[voter_id].has_voted = 1;
         printf("Vote cast successfully.\n");
@@ -52,19 +52,22 @@ void castVote(int voter_id, int candidate_id) {
         printf("Invalid voter or candidate.\n");
     }
 }
-void encrypt(char *str) {
-    char key = 'A';
-    for (int i = 0; i < strlen(str); i++) {
-        str[i] = str[i] ^ key;
-    }
-}
+
 
 int isAdmin(char *password) {
-    char tempPassword[50];
-    strcpy(tempPassword, password); // Create a temporary copy before encrypting
-    encrypt(tempPassword);
-    return (strcmp(tempPassword, "admin123") == 0);
+    //char tempPassword[50];
+    //strcpy(tempPassword, password); // Create a temporary copy before encrypting
+    //encrypt(tempPassword);
+    if(password == "admin123")
+    {
+        return 1;
+    }
+
+
+
 }
+
+
 
 void displayResults(char *password) {
     if (isAdmin(password)) {
@@ -82,7 +85,7 @@ int main() {
     char adminPassword[50];
 
 
-    while (1) {
+        while (1) {
         printf("\nOnline Voting System\n");
         printf("1. Add Candidate\n");
         printf("2. List Candidates\n");
@@ -134,6 +137,12 @@ int main() {
                 printf("Invalid choice.\n");
         }
     }
+
+
+
+
+
+
 
     return 0;
 }
